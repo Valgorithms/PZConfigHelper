@@ -7,7 +7,7 @@ PZConfigHelper is a PHP tool designed to generate mod lists for Project Zomboid 
 Clone the repository to your local machine:
 
 ```sh
-git clone https://github.com/yourusername/PZConfigHelper.git
+git clone https://github.com/Valgorithms/PZConfigHelper.git
 ```
 
 Navigate to the project directory:
@@ -16,18 +16,50 @@ Navigate to the project directory:
 cd PZConfigHelper
 ```
 
+Install dependencies using Composer:
+
+```sh
+composer install
+```
+
 ## Usage
+
+### Running the Example Script
 
 Run the script with the `--path` option to specify the directory containing the mods:
 
 ```sh
-php src/PZConfigHelper/PZConfigHelper.php --path='D:\\SteamLibrary\\steamapps\\workshop\\content\\108600'
+php example.php --path='D:\\SteamLibrary\\steamapps\\workshop\\content\\108600'
 ```
 
 This will generate three files in the current working directory:
 - `Mods.txt`: Contains a list of mod names.
 - `WorkshopItems.txt`: Contains a list of workshop item IDs.
 - `Both.txt`: Contains a combined list of mod names and workshop item IDs.
+
+### Using the PZConfigHelper Class in Your Own Scripts
+
+You can also use the `PZConfigHelper` class in your own PHP scripts. Here is an example:
+
+```php
+require_once 'vendor/autoload.php';
+
+use PZConfigHelper\PZConfigHelper;
+
+$path = 'D:\\SteamLibrary\\steamapps\\workshop\\content\\108600';
+$helper = new PZConfigHelper($path);
+
+// Manually regenerate the lists
+$helper->generateModLists($path);
+
+// Save the lists to files
+$helper->saveToFile(getcwd());
+
+// Access the generated lists directly
+echo $helper->mods;
+echo $helper->ids;
+echo $helper->both;
+```
 
 ## License
 
